@@ -1,0 +1,3 @@
+{
+  "wrongResponse": "this is not the expected response because it's a string and not an object with an array"
+}

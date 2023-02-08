@@ -36,7 +36,16 @@ describe('test handling of response data', () => {
     cy.get('#search').click();
 
     cy.get('p').should('contain.text', 'Inga sökresultat att visa');
-  })
+  });
+
+  it('should display message for no results', () => {
+    cy.intercept('GET', 'http://omdbapi.com/*', {fixture: 'omdbWrongResponse'}).as('omdbCall');
+
+    cy.get('#searchText').type('Fel typ');
+    cy.get('#search').click();
+
+    cy.get('p').should('contain.text', 'Inga sökresultat att visa');
+  });
 })
 
 
