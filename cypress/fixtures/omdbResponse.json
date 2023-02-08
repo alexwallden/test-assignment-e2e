@@ -1,0 +1,18 @@
+{
+  "Search": [
+    {
+      "Title": "A Man Called Otto",
+      "Year": "2022",
+      "imdbID": "tt7405458",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BNzg3OTEzMTgtYWU0OC00YTI0LWIxOTAtNmRkNTc0Nzg2YWU1XkEyXkFqcGdeQXVyNjY1MTg4Mzc@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Dune",
+      "Year": "2021",
+      "imdbID": "tt1160419",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BN2FjNmEyNWMtYzM0ZS00NjIyLTg5YzYtYThlMGVjNzE1OGViXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"
+  }
+  ]
+}
