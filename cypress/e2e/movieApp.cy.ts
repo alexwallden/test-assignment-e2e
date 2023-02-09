@@ -2,50 +2,43 @@ beforeEach(() => {
   cy.visit('/')
 });
 
-describe('first tests to try cypress', () => {
-  it('should write in input', () => {
-    cy.get('#searchText').type('HEJHEJ');
-  });
-});
-
 describe('test input functionality', () => {
-  it('should render movies with h3 elements', () => {
+  it('should fetch data from omdb api and render .movie elements in #movie-container', () => {
     cy.get('#searchText').type('Die hard');
     cy.get('#search').click();
+
+    cy.get('#movie-container').children().should('have.length.greaterThan', 0);
+    cy.get('.movie').parent().should('have.id', 'movie-container');
     cy.get('.movie:first-child > h3').should('contain.text', 'Die Hard');
   });
 
-  it('should render a man called otto', () => {
+  it('should fetch from fixture with correct url and render titles in h3-tags inside movie element', () => {
     cy.intercept('GET', 'http://omdbapi.com/*', { fixture: "omdbResponse" }).as('omdbCall');
+    const searchText = 'Movies from fixture';
 
-
-    cy.get('#searchText').type('Die hard');
+    cy.get('#searchText').type(searchText);
     cy.get('#search').click();
 
-    cy.wait('@omdbCall').its('request.url').should('contain', 'Die%20hard');
+    cy.wait('@omdbCall').its('request.url').should('contain', searchText.replaceAll(' ', '%20'));
     cy.get('.movie').eq(0).get('h3').should('contain.text', 'A Man Called Otto');
     cy.get('.movie').eq(1).get('h3').should('contain.text', 'Dune');
   });
 });
 
 describe('test handling of response data', () => {
-  it('should display message for no results', () => {
-    cy.intercept('GET', 'http://omdbapi.com/*', {fixture: 'omdbEmptyResponse'}).as('omdbCall');
+  it('should display message for no results due to empty response', () => {
+    cy.intercept('GET', 'http://omdbapi.com/*', { fixture: 'omdbEmptyResponse' }).as('omdbCall');
 
-    cy.get('#searchText').type('Ska returnera "Inga sökresultat att visa"');
     cy.get('#search').click();
 
     cy.get('p').should('contain.text', 'Inga sökresultat att visa');
   });
 
-  it('should display message for no results', () => {
-    cy.intercept('GET', 'http://omdbapi.com/*', {fixture: 'omdbWrongResponse'}).as('omdbCall');
+  it('should display message for no results due to unexpected response', () => {
+    cy.intercept('GET', 'http://omdbapi.com/*', { fixture: 'omdbWrongResponse' }).as('omdbCall');
 
-    cy.get('#searchText').type('Fel typ');
     cy.get('#search').click();
 
     cy.get('p').should('contain.text', 'Inga sökresultat att visa');
   });
-})
-
-
+});
