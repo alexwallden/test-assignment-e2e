@@ -31,6 +31,7 @@ describe('test handling of response data', () => {
 
     cy.get('#search').click();
 
+    cy.get('#movie-container > p').should('exist');
     cy.get('p').should('contain.text', 'Inga sökresultat att visa');
   });
 
@@ -39,6 +40,7 @@ describe('test handling of response data', () => {
 
     cy.get('#search').click();
 
+    cy.get('#movie-container > p').should('exist');
     cy.get('p').should('contain.text', 'Inga sökresultat att visa');
   });
 });
